@@ -9,7 +9,6 @@ public class VideoDTO {
     private Long size;
     private Long duration;
     private String name;
-    private String location;
     private CodecInformation audioCodec;
     private CodecInformation videoCodec;
 
