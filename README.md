@@ -19,7 +19,8 @@ From maven
 Application is secured with basic auth and exposes three API: 
 * Create video information
 > Content-Type=multipart/form-data; 
-> POST /rest/video
+> POST /rest/video;
+> Body: file
 * Get all video information
 > Content-Type=application/json; 
 > GET /rest/video
