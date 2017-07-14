@@ -6,6 +6,8 @@ This simple app provides the API for simple detection of video file statistics. 
 Using maven installation
 > mvn clean install
 
+__Warning! Xuggle library in version 5.4 sometimes crash JVM in 64bit environments__
+
 ## Run 
 From artifact: 
 > java -jar rest-video-demo-0.0.1-SNAPSHOT.jar

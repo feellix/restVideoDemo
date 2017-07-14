@@ -1,6 +1,7 @@
 package io.feellix.restvideodemo.domain.video;
 
 import com.xuggle.xuggler.*;
+import io.feellix.restvideodemo.common.error.DefaultException;
 import io.feellix.restvideodemo.file.FileStorageRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tika.Tika;
@@ -44,7 +45,7 @@ public class VideoFactory {
         try {
             fileStorageRepository.storeFile(location, file.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException("Could not read uploaded file");
+            throw new DefaultException("Could not read from uploaded file.", e);
         }
         VideoEntity videoEntity = new VideoEntity(file.getOriginalFilename())
                 .withLocation(location)
@@ -52,7 +53,7 @@ public class VideoFactory {
         try {
             return extract(videoEntity, file);
         } catch (IOException e) {
-            throw new RuntimeException("");
+            throw new DefaultException("Could not read from uploaded file.", e);
         }
     }
 
@@ -72,7 +73,9 @@ public class VideoFactory {
         logger.info("file size (bytes): {}; ", container.getFileSize());
         logger.info("bit rate: {}; ", container.getBitRate());
         logger.info("\n");
-        return extractStreamsInformation(videoEntity, container).withDuration(container.getDuration() == Global.NO_PTS ? null : container.getDuration());
+        VideoEntity result = extractStreamsInformation(videoEntity, container).withDuration(container.getDuration() == Global.NO_PTS ? null : container.getDuration());
+        container.close();
+        return result;
     }
 
 
@@ -118,7 +121,7 @@ public class VideoFactory {
                 throw new IllegalArgumentException("Provided file is not video type.");
             }
         } catch (IOException e) {
-            throw new RuntimeException("");
+            throw new DefaultException("Could not read from uploaded file.", e);
         }
     }
 

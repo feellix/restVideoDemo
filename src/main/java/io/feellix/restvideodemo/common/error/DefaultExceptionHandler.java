@@ -3,7 +3,7 @@ package io.feellix.restvideodemo.common.error;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@ControllerAdvice("io.feellix.restvideodemo")
+@ControllerAdvice
 public class DefaultExceptionHandler {
 
 
